@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+INSTALL_DIR=/home/user/etc/KommanaboyinaGoutham
+PROJECT_NAME=ramp-bot
+INSTALL_BIN=/home/user/bin/
+BIN_NAME=ramp-bot
+
+Install()
+{
+    mkdir -p $INSTALL_DIR/$PROJECT_NAME
+    mkdir -p $INSTALL_BIN
+
+    cp $BIN_NAME $INSTALL_BIN
+
+    cp -r * $INSTALL_DIR/$PROJECT_NAME
+
+    export PATH="$PATH:INSTALL_BIN"
+
+}
+
+Help()
+{
+    echo ' ' 
+    echo ' '
+    echo '------------------------------------------------------- '
+    echo '-----------------------ramp_bot------------------------ '
+    echo '------------------------------------------------------- '
+    echo 'install  : Install the program '
+    echo 'help     : Shows help '
+    echo 'start    : Starts the program '
+
+}
+
+Start()
+{
+    cd ..
+    cd final
+    ./final.sh
+    
+    echo "--- WORLD LOADED ---"
+
+    cd $INSTALL_DIR/$PROJECT_NAME
+    ./loadModel.sh
+    
+    echo "--- ROBOT LOADED ---"
+
+    
+    python move_forward.py
+}
+
+case $1 in 
+'install')
+    Install
+    ;;
+'start')
+    Start
+    ;;
+'help')
+    Help
+    ;;
+*)
+    Help
+    ;;
+    esac
